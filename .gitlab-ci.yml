@@ -9,9 +9,10 @@ variables:
   GITHUB_USER: steigr
   GITHUB_REPO: coreos-zfs
   DEST: /artifacts/build
-  COREOS_RELEASE: "current"
+  COREOS_RELEASE: "789.0.0"
   COREOS_CHANNEL: "alpha"
   GITHUB_RELEASE_URL: "https://github.com/aktau/github-release/releases/download/v0.6.2/linux-amd64-github-release.tar.bz2"
+  ZFS_VERSION: "0.6.5.8"
 
 build:
   only:
@@ -43,11 +44,7 @@ release:
 
 update:
   stage: update
-  variables:
-    GIT_USER_EMAIL: zfs@coreos.stei.gr
-    GIT_USER_NAME: ZFS Build Bot
   only:
   - update
   script:
   - ./mk-branch.sh
-  - sh -c "$GIT_PUSH"
