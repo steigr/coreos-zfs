@@ -17,7 +17,7 @@ export MAKE_PARALLEL="$(grep -c processor /proc/cpuinfo)"
 export DEST_DIR="$CI_PROJECT_DIR/artifacts/$COREOS_RELEASE/${ZFS_VERSION:-git}"
 
 cd /tmp
-curl -L "$COREOS_CPIO_URL" | gunzip | cpio -i
+curl --retry 5 -L "$COREOS_CPIO_URL" | gunzip | cpio -i
 unsquashfs /tmp/usr.squashfs
 
 cd /tmp/squashfs-root/lib64 && tar c modules | tar xC /lib
@@ -32,8 +32,8 @@ rm -rf $SYSTEMD_DIR $UDEV_DIR $MODULES_LOAD_DIR $DEFAULT_FILE $SYSTCONF_DIR
 
 if [[ "$ZFS_VERSION" ]]; then
   mkdir -p /usr/src/zfs /usr/src/spl
-  curl -sL https://github.com/zfsonlinux/zfs/releases/download/zfs-${ZFS_VERSION}/spl-${ZFS_VERSION}.tar.gz | tar zxvC /usr/src/spl --strip-components=1
-  curl -sL https://github.com/zfsonlinux/zfs/releases/download/zfs-${ZFS_VERSION}/zfs-${ZFS_VERSION}.tar.gz | tar zxvC /usr/src/zfs --strip-components=1
+  curl --retry 5 -sL https://github.com/zfsonlinux/zfs/releases/download/zfs-${ZFS_VERSION}/spl-${ZFS_VERSION}.tar.gz | tar zxvC /usr/src/spl --strip-components=1
+  curl --retry 5 -sL https://github.com/zfsonlinux/zfs/releases/download/zfs-${ZFS_VERSION}/zfs-${ZFS_VERSION}.tar.gz | tar zxvC /usr/src/zfs --strip-components=1
 else
   git clone --single-branch git://github.com/zfsonlinux/zfs.git /usr/src/zfs
   git clone --single-branch git://github.com/zfsonlinux/spl.git /usr/src/spl
