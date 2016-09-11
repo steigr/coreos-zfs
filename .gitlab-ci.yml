@@ -9,8 +9,8 @@ variables:
   GITHUB_USER: steigr
   GITHUB_REPO: coreos-zfs
   DEST: /artifacts/build
-  COREOS_RELEASE: "1010.4.0"
-  COREOS_CHANNEL: "beta"
+  COREOS_RELEASE: "1010.5.0"
+  COREOS_CHANNEL: "stable"
   GITHUB_RELEASE_URL: "https://github.com/aktau/github-release/releases/download/v0.6.2/linux-amd64-github-release.tar.bz2"
   ZFS_VERSION: "0.6.5.8"
 
