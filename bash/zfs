@@ -1,0 +1,2 @@
+export PATH=$PATH:/usr/share/oem/zfs/sbin
+eval $([[ $(id -u) -eq 0 ]] ||  ls /usr/share/oem/zfs/sbin* | xargs -n1 basename | xargs -r -n1 -I{} printf 'alias %s="sudo env 'PATH=$PATH' %s"\n;' {} {})

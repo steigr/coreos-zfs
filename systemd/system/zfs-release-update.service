@@ -1,0 +1,13 @@
+[Unit]
+Description=ZFS on CoreOS Updater
+ConditionPathExists=!/usr/share/oem/zfs/lib/modules/%v/extra/zfs/zfs.ko
+Requires=network-online.target
+After=network-online.target
+PartOf=zfs.target
+[Install]
+WantedBy=zfs.target
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+EnvironmentFile=/usr/share/coreos/lsb-release
+ExecStart=/usr/bin/coreos-cloudinit --from-url=https://github.com/steigr/coreos-zfs/releases/download/${DISTRIB_RELEASE}/zfs-offline.yml

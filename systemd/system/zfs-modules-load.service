@@ -1,0 +1,9 @@
+[Unit]
+Description=Load ZFS Kernel Modules
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/bin/systemctl restart systemd-modules-load
+ExecStop=/usr/bin/modprobe -r zfs
+[Install]
+WantedBy=zfs-mount.service
